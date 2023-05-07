@@ -1,4 +1,11 @@
-import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
 import React, {FC, useMemo} from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useCart} from '../../store/CartProvider';
@@ -59,33 +66,35 @@ const ProductDetails: FC<IProps> = ({route}) => {
 
   return (
     <SafeAreaView style={styles.SafeAreaView}>
-      <View style={styles.container}>
-        <Image
-          source={{uri: image, cache: 'only-if-cached'}}
-          resizeMethod={'resize'}
-          resizeMode={'contain'}
-          style={styles.image}
-        />
-        <Text style={styles.title}>{title}</Text>
-        <View style={styles.priceBox}>
-          <Text style={styles.price}>Rs. {price}</Text>
-          <Text style={styles.rating}>
-            Rating: {rating.rate} ({rating.count})
-          </Text>
-        </View>
-        <Text style={styles.description}>{description}</Text>
-        <View style={styles.bottomBox}>
-          <TouchableOpacity style={styles.cartButton} onPress={onAddToCart}>
-            <Text style={styles.buttonText}>
-              {' '}
-              {itemInCart.length > 0 ? 'Remove' : 'Add to Cart'}{' '}
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.container}>
+          <Image
+            source={{uri: image, cache: 'only-if-cached'}}
+            resizeMethod={'resize'}
+            resizeMode={'contain'}
+            style={styles.image}
+          />
+          <Text style={styles.title}>{title}</Text>
+          <View style={styles.priceBox}>
+            <Text style={styles.price}>Rs. {price}</Text>
+            <Text style={styles.rating}>
+              Rating: {rating.rate} ({rating.count})
             </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.buyButton} onPress={onBuyNow}>
-            <Text style={styles.buttonText}> Buy Now </Text>
-          </TouchableOpacity>
+          </View>
+          <Text style={styles.description}>{description}</Text>
+          <View style={styles.bottomBox}>
+            <TouchableOpacity style={styles.cartButton} onPress={onAddToCart}>
+              <Text style={styles.buttonText}>
+                {' '}
+                {itemInCart.length > 0 ? 'Remove' : 'Add to Cart'}{' '}
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buyButton} onPress={onBuyNow}>
+              <Text style={styles.buttonText}> Buy Now </Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -135,6 +144,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'gray',
     margin: 10,
+    marginBottom: 100,
   },
   bottomBox: {
     position: 'absolute',
